@@ -1,0 +1,45 @@
+Costs if not monitored, can escalate very quickly when using cloud architecture. We use many EC2 instances for non-production use-cases and to optimize on costs, we use lambda to automatically stop and start the instances.
+
+Before we get to the lambda function, we calculated our EC2 CPU-utilization using aws-cli which returns a json and to save it to a text file :
+
+aws cloudwatch get-metric-statistics — metric-name CPUUtilization — start-time yyyy-mm-dd — end-time yyyy-mm-dd — period 3600 — namespace AWS/EC2 — statistics Maximum — dimensions Name=InstanceId,Value=i-XXXXXXXXXXXXXXXXX >>output.txt
+The above command returns maximum cpu-utilization at an hourly level. You would have to define the start and end date along with the instance-id (you will find this in EC2 instance details).
+
+You can use the below python script to convert the json into a csv file:
+
+import json
+import pandas as pd
+fileObject=open(‘output.txt’,’rb’)
+readJson=json.load(fileObject)
+dataDict=readJson[‘Datapoints’]
+Timestamp=[]
+Usage=[]
+for item in dataDict:
+ Timestamp.append(item[‘Timestamp’])
+ Usage.append(item[‘Maximum’])
+dataFrame=pd.DataFrame({‘timeStamp’:Timestamp,’usage’:Usage})
+dataFrame[[‘Date’,’Time’]]=dataFrame[‘timeStamp’].str.split(‘T’, 1, expand=True)
+dataFrame.to_csv(‘usage.csv’)
+Use the above generated csv file to find the idle hours of your instances. Using a lambda function, you can start and stop an EC2 instance based on an instance ID.
+
+Script to start an instance:
+
+import boto3
+region = ‘ap-south-1’
+instances = [‘i-XXXXXXXXXXXXXXXXX’,’i-XXXXXXXXXXXXXXXXX’]
+def lambda_handler(event, context):
+ ec2 = boto3.client(‘ec2’, region_name=region)
+ ec2.start_instances(InstanceIds=instances)
+ print ‘started your instances: ‘ + str(instances)
+Script to stop an instance:
+
+import boto3
+region = ‘ap-south-1’
+instances = [‘i-XXXXXXXXXXXXXXXXX’,’i-XXXXXXXXXXXXXXXXX’]
+def lambda_handler(event, context):
+ ec2 = boto3.client(‘ec2’, region_name=region)
+ ec2.stop_instances(InstanceIds=instances)
+ print ‘stopped your instances: ‘ + str(instances)
+Remember to give a align the indentation within the function (shortcoming of medium to indent text).
+
+You can now set up a cloudwatch rule using cron to call the lambda functions defined to start and stop the instance.

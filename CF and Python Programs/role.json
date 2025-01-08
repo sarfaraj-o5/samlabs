@@ -1,0 +1,181 @@
+        {
+
+            "Sid": "VisualEditor4",
+
+            "Effect": "Deny",
+
+            "Action": [
+
+                "cognito-idp:ForgotPassword",
+
+                "cognito-idp:ConfirmSignUp",
+
+                "cognito-idp:UpdateAuthEventFeedback",
+
+                "dynamodb:RestoreTableToPointInTime",
+
+                "dynamodb:UpdateGlobalTable",
+
+                "cognito-idp:CreateUserImportJob",
+
+                "dynamodb:DeleteTable",
+
+                "cognito-idp:Admin*",
+
+                "cognito-idp:CreateIdentityProvider",
+
+                "cognito-idp:Delete*",
+
+                "cognito-idp:UntagResource",
+
+                "cognito-idp:SetUserMFAPreference",
+
+                "cognito-idp:TagResource",
+
+                "elasticfilesystem:ModifyMountTargetSecurityGroups",
+
+                "cognito-idp:UpdateResourceServer",
+
+                "dynamodb:BatchWriteItem",
+
+                "dynamodb:UpdateTimeToLive",
+
+                "cognito-idp:SetUICustomization",
+
+                "dynamodb:PutItem",
+
+                "cognito-idp:SignUp",
+
+                "cognito-idp:SetRiskConfiguration",
+
+                "cognito-idp:VerifyUserAttribute",
+
+                "cognito-idp:UpdateUserPoolClient",
+
+                "cognito-idp:StartUserImportJob",
+
+                "dynamodb:UpdateItem",
+
+                "cognito-idp:AdminSetUserPassword",
+
+                "cognito-idp:AdminUpdateUserAttributes",
+
+                "cognito-idp:AssociateSoftwareToken",
+
+                "dynamodb:CreateTable",
+
+                "dynamodb:UpdateGlobalTableSettings",
+
+                "cognito-idp:CreateResourceServer",
+
+                "cognito-idp:DeleteUserAttributes",
+
+                "cognito-idp:RespondToAuthChallenge",
+
+                "cognito-idp:UpdateUserAttributes",
+
+                "elasticfilesystem:CreateMountTarget",
+
+                "cognito-idp:CreateUserPoolClient",
+
+                "dynamodb:UpdateTable",
+
+                "elasticfilesystem:DeleteFileSystem",
+
+                "cognito-idp:AdminUserGlobalSignOut",
+
+                "cognito-idp:UpdateUserPoolDomain",
+
+                "cognito-idp:DeleteUserPool",
+
+                "cognito-idp:AddCustomAttributes",
+
+                "cognito-idp:GlobalSignOut",
+
+                "dynamodb:DeleteItem",
+
+                "cognito-idp:CreateGroup",
+
+                "dynamodb:CreateBackup",
+
+                "cognito-idp:Admin*",
+
+                "cognito-idp:UpdateIdentityProvider",
+
+                "cognito-idp:ForgetDevice",
+
+                "dynamodb:UpdateContinuousBackups",
+
+                "elasticfilesystem:DeleteTags",
+
+                "cognito-idp:CreateUserPoolDomain",
+
+                "dynamodb:TagResource",
+
+                "cognito-idp:UpdateGroup",
+
+                "cognito-idp:StopUserImportJob",
+
+                "elasticfilesystem:PutLifecycleConfiguration",
+
+                "dynamodb:CreateGlobalTable",
+
+                "cognito-idp:InitiateAuth",
+
+                "elasticfilesystem:DeleteMountTarget",
+
+                "cognito-idp:DeleteIdentityProvider",
+
+                "cognito-idp:ConfirmForgotPassword",
+
+                "dynamodb:UntagResource",
+
+                "cognito-idp:SetUserSettings",
+
+                "cognito-idp:VerifySoftwareToken",
+
+                "elasticfilesystem:CreateTags",
+
+                "cognito-idp:AdminDisableProviderForUser",
+
+                "dynamodb:RestoreTableFromBackup",
+
+                "cognito-idp:SetUserPoolMfaConfig",
+
+                "cognito-idp:UpdateDeviceStatus",
+
+                "cognito-idp:ChangePassword",
+
+                "cognito-idp:ConfirmDevice",
+
+                "cognito-idp:UpdateUserPool",
+
+                "dynamodb:DeleteBackup",
+
+                "cognito-idp:AdminResetUserPassword",
+
+                "cognito-idp:ResendConfirmationCode",
+
+                "elasticfilesystem:UpdateFileSystem"
+
+            ],
+
+            "Resource": [
+
+                "arn:aws:dynamodb:*:*:table/SftpProd-sftpkey-table",
+
+                "arn:aws:dynamodb:*:*:table/Noncompliance",
+
+                "arn:aws:dynamodb:*:*:table/*/backup/*",
+
+                "arn:aws:dynamodb::*:global-table/*",
+
+                "arn:aws:cognito-idp:*:*:userpool/*",
+
+                "arn:aws:elasticfilesystem:*:*:file-system/*"
+
+            ]
+
+        }
+
+

@@ -1,0 +1,338 @@
+IAM Policy to allow and deny aws services for devops user
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "s3FullAccess",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "s3DeleteBucket",
+            "Effect": "Deny",
+            "Action": "s3:DeleteBucket",
+            "Resource": "*"
+        },
+        {
+            "Sid": "efsfullaccess",
+            "Effect": "Allow",
+            "Action": "elasticfilesystem:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "StorageGatewayFullAccess",
+            "Effect": "Allow",
+            "Action": "storagegateway:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "BackupFullAccess",
+            "Effect": "Allow",
+            "Action": "backup:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "RDSFullAccess",
+            "Effect": "Allow",
+            "Action": "rds:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "RDSDeny",
+            "Effect": "Deny",
+            "Action": [
+                "rds:DeleteGlobalCluster",
+                "rds:DeleteDBSnapshot",
+                "rds:DeleteDBInstanceAutomatedBackup",
+                "rds:DeleteDBSubnetGroup",
+                "rds:DeleteOptionGroup",
+                "rds:DeleteDBClusterSnapshot",
+                "rds:DeleteEventSubscription",
+                "rds:DeleteDBSecurityGroup",
+                "rds:DeleteDBClusterEndpoint",
+                "rds:DeleteDBParameterGroup",
+                "rds:DeleteDBClusterParameterGroup",
+                "rds:DeleteDBCluster",
+                "rds:DeleteDBInstance"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ServerMigrationFullAccess",
+            "Effect": "Allow",
+            "Action": "sms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Route53FullAccess",
+            "Effect": "Allow",
+            "Action": "route53:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "DirectConnectFullAccess",
+            "Effect": "Allow",
+            "Action": "directconnect:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "CloudWatchFullAccess",
+            "Effect": "Allow",
+            "Action": "cloudwatch:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "CloudTrainFullAccess",
+            "Effect": "Allow",
+            "Action": "cloudtrail:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "SystemManagerFullAccess",
+            "Effect": "Allow",
+            "Action": "ssm:*",
+            "Resource": "*"
+        },
+         
+        {
+            "Sid": "SNSFullAccess",
+            "Effect": "Allow",
+            "Action": "sns:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "SQSFullAccess",
+            "Effect": "Allow",
+            "Action": "sqs:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "SWSFullAccess",
+            "Effect": "Allow",
+            "Action": "swf:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "IAMLimitedAccess",
+            "Effect": "Allow",
+            "Action": [
+                "iam:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "IAMDeny",
+            "Effect": "Deny",
+            "Action": [
+                "iam:DeleteInstanceProfile",
+                "iam:DeleteAccessKey",
+                "iam:DeleteGroup",
+                "iam:DeleteRole",
+                "iam:DeleteSSHPublicKey",
+                "iam:DeleteUser",
+                "iam:DeleteAccountAlias",
+                "iam:DeleteOpenIDConnectProvider",
+                "iam:DeleteLoginProfile"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ec2FullAccess",
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Ec2VPCDeny",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:TerminateInstances",
+                "ec2:CreateInternetGateway",
+                "ec2:DeleteVpc"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "SAPStopInstanceDeny",
+            "Effect": "Deny",
+            "Action": "ec2:StopInstances",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:TagKeys": "SAP"
+                }
+            }
+        }
+
+    ] 
+}
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "s3FullAccess",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "s3DeleteBucket",
+            "Effect": "Deny",
+            "Action": "s3:DeleteBucket",
+            "Resource": "*"
+        },
+        {
+            "Sid": "efsfullaccess",
+            "Effect": "Allow",
+            "Action": "elasticfilesystem:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "StorageGatewayFullAccess",
+            "Effect": "Allow",
+            "Action": "storagegateway:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "BackupFullAccess",
+            "Effect": "Allow",
+            "Action": "backup:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "RDSFullAccess",
+            "Effect": "Allow",
+            "Action": "rds:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "RDSDeny",
+            "Effect": "Deny",
+            "Action": [
+                "rds:DeleteGlobalCluster",
+                "rds:DeleteDBSnapshot",
+                "rds:DeleteDBInstanceAutomatedBackup",
+                "rds:DeleteDBSubnetGroup",
+                "rds:DeleteOptionGroup",
+                "rds:DeleteDBClusterSnapshot",
+                "rds:DeleteEventSubscription",
+                "rds:DeleteDBSecurityGroup",
+                "rds:DeleteDBClusterEndpoint",
+                "rds:DeleteDBParameterGroup",
+                "rds:DeleteDBClusterParameterGroup",
+                "rds:DeleteDBCluster",
+                "rds:DeleteDBInstance"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ServerMigrationFullAccess",
+            "Effect": "Allow",
+            "Action": "sms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Route53FullAccess",
+            "Effect": "Allow",
+            "Action": "route53:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "DirectConnectFullAccess",
+            "Effect": "Allow",
+            "Action": "directconnect:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "CloudWatchFullAccess",
+            "Effect": "Allow",
+            "Action": "cloudwatch:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "CloudTrainFullAccess",
+            "Effect": "Allow",
+            "Action": "cloudtrail:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "SystemManagerFullAccess",
+            "Effect": "Allow",
+            "Action": "ssm:*",
+            "Resource": "*"
+        },
+         
+        {
+            "Sid": "SNSFullAccess",
+            "Effect": "Allow",
+            "Action": "sns:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "SQSFullAccess",
+            "Effect": "Allow",
+            "Action": "sqs:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "SWSFullAccess",
+            "Effect": "Allow",
+            "Action": "swf:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "IAMLimitedAccess",
+            "Effect": "Allow",
+            "Action": [
+                "iam:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "IAMDeny",
+            "Effect": "Deny",
+            "Action": [
+                "iam:DeleteInstanceProfile",
+                "iam:DeleteAccessKey",
+                "iam:DeleteGroup",
+                "iam:DeleteRole",
+                "iam:DeleteSSHPublicKey",
+                "iam:DeleteUser",
+                "iam:DeleteAccountAlias",
+                "iam:DeleteOpenIDConnectProvider",
+                "iam:DeleteLoginProfile"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ec2FullAccess",
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Ec2VPCDeny",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:TerminateInstances",
+                "ec2:CreateInternetGateway",
+                "ec2:DeleteVpc"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "SAPStopInstanceDeny",
+            "Effect": "Deny",
+            "Action": "ec2:StopInstances",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:TagKeys": "SAP"
+                }
+            }
+        }
+
+    ] 
+}

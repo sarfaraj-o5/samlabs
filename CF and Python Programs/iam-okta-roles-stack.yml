@@ -1,0 +1,152 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create security groups and IAM roles
+Parameters:
+  S3BucketName:
+    Type: String
+    Description: Name of the S3 bucket to allow access to the Web Server IAM Role.
+  Environment:
+    Type: String
+    Description: Select the appropriate environment
+    AllowedValues:
+      - test
+      - uat
+      - prod
+      - p
+Mappings:
+  AwsKeyMap:
+    '544135626450':
+      method: Okta
+      accountName: CisSandbox
+      iamOktaUserArn: 'arn:aws:iam::544135626450:user/svcAWSOktaSand@bose.com'
+    '140059972379':
+      method: Okta
+      accountName: CisNP
+      iamOktaUserArn: 'arn:aws:iam::140059972379:user/svcawsoktanp@bose.com'
+    '164705996232':
+      method: Okta
+      accountName: CisSS
+      iamOktaUserArn: 'arn:aws:iam::164705996232:user/svcAWSOktaSS'
+    '814776440925':
+      method: Okta
+      accountName: CisPROD
+      iamOktaUserArn: 'arn:aws:iam::814776440925:user/svcawsoktap@bose.com'
+    '385367117535':
+      method: Okta
+      accountName: GMP
+      iamOktaUserArn: 'arn:aws:iam::385367117535:user/svcAWSOktaMarketing-GMP'
+    '974826813514':
+      method: Okta
+      accountName: CisInfosec-Prod
+      iamOktaUserArn: 'arn:aws:iam::974826813514:user/svcAWSOktaInfoSec'
+    '229135603840':
+      method: Okta
+      accountName: CisInfosec-Nonprod
+      iamOktaUserArn: 'arn:aws:iam::229135603840:user/svcINFOSECnpIAM'
+    '392385672822':
+      method: Okta
+      accountName: CE-Research
+      iamOktaUserArn: 'arn:aws:iam::392385672822:user/svcawsoktaceresearch'
+    '702523372707':
+      method: Okta
+      accountName: CE-AR-Nonprod
+      iamOktaUserArn: 'arn:aws:iam::702523372707:user/svcOkta'
+    '119279428788':
+      method: Okta
+      accountName: CE-AR-Prod
+      iamOktaUserArn: 'arn:aws:iam::119279428788:user/svcAWSOktaCeArProd@bose.com'
+    '029607625161':
+      method: Okta
+      accountName: CDO-Sandbox
+      iamOktaUserArn: 'arn:aws:iam::029607625161:user/Svcokta'
+    '233249314176':
+      method: Okta
+      accountName: CDO-TextAnalytics
+      iamOktaUserArn: 'arn:aws:iam::233249314176:user/Svcokta'
+    '613595580970':
+      method: Okta
+      accountName: CDO-CE
+      iamOktaUserArn: 'arn:aws:iam::613595580970:user/svcAWSOktaCDOCE'
+    '367932288521':
+      method: Okta
+      accountName: CDO-Wellness
+      iamOktaUserArn: 'arn:aws:iam::367932288521:user/svcawsoktacdowellness@bose.com'
+    '937747845788':
+      method: SAML
+      accountName: ITAD
+      samlTrust: 'arn:aws:iam::937747845788:saml-provider/AzureAD' 
+    '446560830204':
+      method: Okta
+      accountName: Global-Digital
+      iamOktaUserArn: 'arn:aws:iam::446560830204:user/svcAWSOktaglobaldigital@bose.com'
+    '324075244325':
+      method: Okta
+      accountName: CisCC
+      iamOktaUserArn: 'arn:aws:iam::324075244325:user/svcokta'
+    '373837544554':
+      method: Okta
+      accountName: CisMarge
+      iamOktaUserArn: a
+    '101603071147':
+      method: Okta
+      accountName: CisCIP
+      iamOktaUserArn: 'arn:aws:iam::101603071147:user/svcAWSOktaCIP'
+    '816292726035':
+      method: Okta
+      accountName: AsperaFileTransfer
+      iamOktaUserArn: a
+    '860609941183':
+      method: Okta
+      accountName: Marketing-GDAM
+      iamOktaUserArn: 'arn:aws:iam::860609941183:user/svcAWSOktaGDAM'
+    '541352145973':
+      method: Okta
+      accountName: CisPCE-Prod
+      iamOktaUserArn: 'arn:aws:iam::541352145973:user/svcawsoktapcep'
+    '447067376945':
+      method: Okta
+      accountName: CisPCE-NonProd
+      iamOktaUserArn: 'arn:aws:iam::447067376945:user/svcawsoktapcenp@bose.com'
+    '377600502137':
+      method: Okta
+      accountName: Wellness-NonProd
+      iamOktaUserArn: 'arn:aws:iam::377600502137:user/svcokta'
+    '451082172642':
+      method: Okta
+      accountName: Wellness-Prod
+      iamOktaUserArn: 'arn:aws:iam::451082172642:user/svcokta'
+    '828305419647':
+      method: Okta
+      accountName: Wellness-Research
+      iamOktaUserArn: 'arn:aws:iam::828305419647:user/svc-wellness-research-okta'
+Resources:
+  IamRoleBoseNetworkingSupport:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: !Join 
+        - '-'
+        - - NW-CIS
+          - !FindInMap 
+            - AwsKeyMap
+            - !Ref 'AWS::AccountId'
+            - accountName
+          - !Ref Environment
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !FindInMap 
+                  - AwsKeyMap
+                  - !Ref 'AWS::AccountId'
+                  - iamOktaUserArn
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/job-function/NetworkAdministrator'
+        - 'arn:aws:iam::aws:policy/AWSSupportAccess'
+      Path: /
+Outputs:
+  IamRoleBoseNetworkingSupport:
+    Description: IAM Role Bose Networking Support
+    Value: !GetAtt IamRoleBoseNetworkingSupport.Arn
